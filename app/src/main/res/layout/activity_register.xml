@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_signup"
+    tools:context="com.example.company.sabborah.views.RegisterActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" android:layout_marginTop="20dp">
+
+        <EditText
+            android:id="@+id/nameET"
+            style="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/nameHint" />
+
+        <EditText
+            android:id="@+id/mobileET"
+            style="@style/EditTextStyle.MobileStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/mobileHint" />
+
+        <EditText
+            android:id="@+id/emailET"
+            style="@style/EditTextStyle.EmailStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/emailHint" />
+
+        <EditText
+            android:id="@+id/passwordET"
+            style="@style/EditTextStyle.PasswordStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/passwordHint" />
+
+        <EditText
+            android:id="@+id/confirmPasswordET"
+            style="@style/EditTextStyle.PasswordStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/confirmPasswordHint" />
+
+
+        <RadioGroup
+            android:id="@+id/typeRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/studentRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:checked="true"
+                android:text="@string/student" />
+
+            <RadioButton
+                android:id="@+id/tutorRadio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tutor" />
+        </RadioGroup>
+
+        <Button
+            style="@style/ButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="register"
+            android:text="@string/registerBTN" />
+    </LinearLayout>
+</RelativeLayout>

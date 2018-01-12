@@ -1,0 +1,46 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="EditTextStyle" parent="@android:style/TextAppearance">
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_marginLeft">@dimen/editTextMargin</item>
+        <item name="android:layout_marginRight">@dimen/editTextMargin</item>
+        <item name="android:layout_marginBottom">@dimen/editTextMargin</item>
+    </style>
+    <style name="ButtonStyle">
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:layout_marginLeft">@dimen/buttonMargin</item>
+        <item name="android:layout_marginRight">@dimen/buttonMargin</item>
+        <item name="android:layout_marginBottom">@dimen/editTextMargin</item>
+    </style>
+    <style name="EditTextStyle.MobileStyle">
+        <item name="android:inputType">phone</item>
+    </style>
+    <style name="EditTextStyle.NumberStyle">
+        <item name="android:inputType">number</item>
+    </style>
+
+    <style name="EditTextStyle.NumberDecimalStyle">
+        <item name="android:inputType">numberDecimal</item>
+    </style>
+
+    <style name="EditTextStyle.EmailStyle" >
+        <item name="android:inputType">textEmailAddress</item>
+    </style>
+
+    <style name="EditTextStyle.PasswordStyle">
+        <item name="android:inputType">textPassword</item>
+    </style>
+</resources>

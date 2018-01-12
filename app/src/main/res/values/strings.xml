@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Sabborah</string>
+    <string name="registerBTN">Register</string>
+    <string name="loginBTN">Login</string>
+    <string name="nameHint">Enter your name</string>
+    <string name="mobileHint">Enter your mobile</string>
+    <string name="passwordHint">Enter your password</string>
+    <string name="confirmPasswordHint">Confirm your password</string>
+    <string name="emailHint">Enter your email</string>
+    <string name="tutor">Tutor</string>
+    <string name="student">Student</string>
+    <string name="register_validation">validation info</string>
+    <string name="progressTitle">Loading, Please wait...</string>
+</resources>
