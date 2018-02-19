@@ -11,4 +11,61 @@
     <string name="student">Student</string>
     <string name="register_validation">validation info</string>
     <string name="progressTitle">Loading, Please wait...</string>
+    <string name="addSubject">Add Subject</string>
+    <string name="addAvailability">Add Availability</string>
+    <string name="single">فردي</string>
+    <string name="group">جماعي</string>
+    <string name="hourPrice">سعر الساعة</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <array name="timeSlots">
+        <item>12:00 AM Label</item>
+        <item>12:30 AM Label</item>
+        <item>01:00 AM Label</item>
+        <item>01:30 AM Label</item>
+        <item>02:00 AM Label</item>
+        <item>02:30 AM Label</item>
+        <item>03:00 AM Label</item>
+        <item>03:30 AM Label</item>
+        <item>04:00 AM Label</item>
+        <item>04:30 AM Label</item>
+        <item>05:00 AM Label</item>
+        <item>05:30 AM Label</item>
+        <item>06:00 AM Label</item>
+        <item>06:30 AM Label</item>
+        <item>07:00 AM Label</item>
+        <item>07:30 AM Label</item>
+        <item>08:00 AM Label</item>
+        <item>08:30 AM Label</item>
+        <item>09:00 AM Label</item>
+        <item>09:30 AM Label</item>
+        <item>10:00 AM Label</item>
+        <item>10:30 AM Label</item>
+        <item>11:00 AM Label</item>
+        <item>11:30 AM Label</item>
+        <item>12:00 PM Label</item>
+        <item>12:30 PM Label</item>
+        <item>01:00 PM Label</item>
+        <item>01:30 PM Label</item>
+        <item>02:00 PM Label</item>
+        <item>02:30 PM Label</item>
+        <item>03:00 PM Label</item>
+        <item>03:30 PM Label</item>
+        <item>04:00 PM Label</item>
+        <item>04:30 PM Label</item>
+        <item>05:00 PM Label</item>
+        <item>05:30 PM Label</item>
+        <item>06:00 PM Label</item>
+        <item>06:30 PM Label</item>
+        <item>07:00 PM Label</item>
+        <item>07:30 PM Label</item>
+        <item>08:00 PM Label</item>
+        <item>08:30 PM Label</item>
+        <item>09:00 PM Label</item>
+        <item>09:30 PM Label</item>
+        <item>10:00 PM Label</item>
+        <item>10:30 PM Label</item>
+        <item>11:00 PM Label</item>
+        <item>11:30 PM Label</item>
+    </array>
 </resources>

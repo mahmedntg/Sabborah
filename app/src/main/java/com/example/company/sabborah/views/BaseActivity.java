@@ -14,6 +14,9 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.company.sabborah.R;
+import com.example.company.sabborah.models.Country;
+import com.example.company.sabborah.presenters.CommonContract;
+import com.example.company.sabborah.presenters.UserContract;
 import com.example.company.sabborah.presenters.UserView;
 import com.example.company.sabborah.responses.CommonResponse;
 import com.example.company.sabborah.utils.MyAlertDialog;
@@ -22,11 +25,17 @@ import com.mobsandgeeks.saripaar.Validator;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
 /**
  * Created by Mohamed Sayed on 1/8/2018.
  */
 
-public class BaseActivity extends AppCompatActivity implements UserView, Validator.ValidationListener {
+public class BaseActivity extends AppCompatActivity implements Validator.ValidationListener {
     private ProgressBar progressBar;
     private AlertDialog alertDialog;
     protected boolean validationSucceeded;
@@ -38,12 +47,12 @@ public class BaseActivity extends AppCompatActivity implements UserView, Validat
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+        ButterKnife.bind(this);
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage(getString(R.string.progressTitle));
         validator = new Validator(this);
         validator.setValidationListener(this);
-        /*
         relativeLayout = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.progress_bar, null);
         //progressBar=relativeLayout
         ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
@@ -51,35 +60,10 @@ public class BaseActivity extends AppCompatActivity implements UserView, Validat
                 ViewGroup.LayoutParams.MATCH_PARENT // Height of progress bar
         );
         relativeLayout.setLayoutParams(lp);
-        addContentView(relativeLayout, relativeLayout.getLayoutParams());*/
+        addContentView(relativeLayout, relativeLayout.getLayoutParams());
         alertDialog = MyAlertDialog.createAlertDialog(this, getString(R.string.register_validation));
     }
 
-    @Override
-    public void showWait() {
-        //      relativeLayout.setVisibility(View.VISIBLE);
-        progressDialog.show();
-    }
-
-    @Override
-    public void removeWait() {
-//        relativeLayout.setVisibility(View.GONE);
-        progressDialog.dismiss();
-    }
-
-    @Override
-    public void onFailure(CommonResponse commonResponse) {
-        alertDialog.setMessage(commonResponse.getErrors().get(0));
-        alertDialog.show();
-
-    }
-
-    @Override
-    public void userSuccess(CommonResponse commonResponse) {
-        alertDialog.setMessage(commonResponse.getMessage());
-        alertDialog.show();
-
-    }
 
     @Override
     public void onValidationSucceeded() {

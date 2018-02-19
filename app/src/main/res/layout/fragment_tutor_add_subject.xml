@@ -1,0 +1,39 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.company.sabborah.views.TutorAddSubjectFragment">
+
+    <Button
+        android:id="@+id/addSubjectBTN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/addSubject" />
+
+    <Spinner
+        android:id="@+id/levelSpinnerId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dialog"></Spinner>
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:visibility="visible"/>
+   <ExpandableListView
+       android:id="@+id/gradeListView"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:choiceMode="singleChoice"
+       android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+       android:divider="@android:color/darker_gray"
+       android:dividerHeight="0.5dp"></ExpandableListView>
+
+</LinearLayout>
+

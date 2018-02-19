@@ -19,16 +19,14 @@
             style="@style/EditTextStyle.EmailStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/emailHint"
-            android:text="@{user.email}" />
+            android:hint="@string/emailHint" />
 
         <EditText
             android:id="@+id/passwordET"
             style="@style/EditTextStyle.PasswordStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/passwordHint"
-            android:text="@{user.password}" />
+            android:hint="@string/passwordHint" />
 
         <Button
             style="@style/ButtonStyle"
@@ -44,4 +42,13 @@
             android:onClick="register"
             android:text="@string/registerBTN" />
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:visibility="gone" />
 </RelativeLayout>

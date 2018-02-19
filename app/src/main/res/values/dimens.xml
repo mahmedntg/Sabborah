@@ -2,4 +2,8 @@
 <resources>
     <dimen name="editTextMargin">10dp</dimen>
     <dimen name="buttonMargin">30dp</dimen>
+    <dimen name="list_item_height">48dp</dimen>
+    <dimen name="horizontal_margin">16dp</dimen>
+    <dimen name="list_item_left_margin">72dp</dimen>
+
 </resources>

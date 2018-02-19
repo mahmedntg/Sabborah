@@ -1,5 +1,6 @@
 package com.example.company.sabborah.responses;
 
+import com.example.company.sabborah.responses.tutor.Level;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -78,6 +79,17 @@ public class CommonResponse {
         @SerializedName("token")
         @Expose
         private String token;
+        @SerializedName("levels")
+        @Expose
+        private List<Level> levels = null;
+
+        public List<Level> getLevels() {
+            return levels;
+        }
+
+        public void setLevels(List<Level> levels) {
+            this.levels = levels;
+        }
 
         public String getUsername() {
             return username;
@@ -103,4 +115,6 @@ public class CommonResponse {
             this.token = token;
         }
     }
+
+
 }

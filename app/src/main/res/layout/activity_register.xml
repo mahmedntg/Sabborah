@@ -10,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/nameET"
@@ -47,6 +48,11 @@
             android:layout_height="wrap_content"
             android:hint="@string/confirmPasswordHint" />
 
+        <Spinner
+            android:id="@+id/countrySpinnerId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dialog"></Spinner>
 
         <RadioGroup
             android:id="@+id/typeRadioGroup"
@@ -78,4 +84,13 @@
             android:onClick="register"
             android:text="@string/registerBTN" />
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:visibility="visible" />
 </RelativeLayout>

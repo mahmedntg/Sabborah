@@ -30,17 +30,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by Mohamed Sayed on 1/4/2018.
  */
 
-public class APIClient extends Application {
+public class APIClient {
     public static final String connectionLost = "No internet connection!";
     private static Retrofit retrofit = null;
     private static APIClient mInstance;
     static File cacheFile;
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        cacheFile = getApplicationContext().getCacheDir();
-    }
 
     private APIClient() {
     }
@@ -87,34 +81,12 @@ public class APIClient extends Application {
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(BuildConfig.BASEURL)
+                .baseUrl(BuildConfig.BASEURL2)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)
                 .build();
         return retrofit;
-    }
-
-    public CommonResponse getResponse(Response response, Context context) {
-        Gson converter = new Gson();
-        CommonResponse commonResponse = new CommonResponse();
-        if (response.isSuccessful()) {
-            commonResponse = (CommonResponse) response.body();
-            MySharedPreferences.getReference(context).setToken(commonResponse.getResult().getToken());
-        } else {
-            try {
-                JSONObject jObjError = new JSONObject(response.errorBody().string());
-                List<String> errors = converter.fromJson(jObjError.getJSONArray("errors").toString(), ArrayList.class);
-                commonResponse.setErrors(errors);
-                commonResponse.setSuccess(response.isSuccessful());
-                commonResponse.setStatusCode(response.code());
-            } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return commonResponse;
     }
 
     public CommonResponse getErrorBody(Response<?> response) {

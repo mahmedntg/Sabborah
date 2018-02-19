@@ -36,6 +36,15 @@ public class User {
         this.isTutor = isTutor;
     }
 
+    public User(String name, String mobile, String email, String password, boolean isTutor, String countryId) {
+        this.name = name;
+        this.mobile = mobile;
+        this.email = email;
+        this.password = password;
+        this.isTutor = isTutor;
+        this.countryId = countryId;
+    }
+
     public String getName() {
         return name;
     }

@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.company.sabborah.views.SplashFragment">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="addAvailability"
+        android:text="@string/addAvailability" />
+
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        android:id="@+id/calendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layoutDirection="rtl"
+        app:mcv_calendarMode="week"
+        app:mcv_firstDayOfWeek="saturday"
+        app:mcv_showOtherDates="all"></com.prolificinteractive.materialcalendarview.MaterialCalendarView>
+
+    <ListView
+        android:id="@+id/timeSlotLV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"></ListView>
+
+</LinearLayout>

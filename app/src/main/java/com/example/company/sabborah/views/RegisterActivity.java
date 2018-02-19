@@ -1,17 +1,24 @@
 package com.example.company.sabborah.views;
 
 import android.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 
 import com.example.company.sabborah.R;
+import com.example.company.sabborah.models.Country;
+import com.example.company.sabborah.presenters.CommonContract;
+import com.example.company.sabborah.presenters.CommonPresenter;
+import com.example.company.sabborah.presenters.UserContract;
 import com.example.company.sabborah.presenters.UserPresenter;
-import com.example.company.sabborah.presenters.UserView;
 import com.example.company.sabborah.responses.CommonResponse;
+import com.example.company.sabborah.responses.CountryResponse;
 import com.example.company.sabborah.services.ApiService.UserService;
 import com.example.company.sabborah.models.User;
 import com.example.company.sabborah.utils.MyAlertDialog;
@@ -20,38 +27,71 @@ import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
 
-public class RegisterActivity extends BaseActivity {
+import java.util.List;
+
+import butterknife.BindView;
+import io.reactivex.disposables.Disposable;
+
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+
+public class RegisterActivity extends BaseActivity implements CommonContract.View, UserContract.View {
+    CommonPresenter commonPresenter;
+    UserPresenter userPresenter;
     @NotEmpty
-    private EditText nameET;
+    @BindView(R.id.nameET)
+    EditText nameET;
     @NotEmpty
     @Email
-    private EditText emailET;
+    @BindView(R.id.emailET)
+    EditText emailET;
     @NotEmpty
     @Password
-    private EditText passwordET;
+    @BindView(R.id.passwordET)
+    EditText passwordET;
     @NotEmpty
     @ConfirmPassword
-    private EditText confirmPassworET;
+    @BindView(R.id.confirmPasswordET)
+    EditText confirmPassworET;
     @NotEmpty
-    private EditText mobileET;
-    private RadioGroup type;
-    private RadioButton tutorRadioButton;
+    @BindView(R.id.mobileET)
+    EditText mobileET;
+    @BindView(R.id.typeRadioGroup)
+    RadioGroup type;
+    @BindView(R.id.tutorRadio)
+    RadioButton tutorRadioButton;
+    @BindView(R.id.countrySpinnerId)
+    Spinner countrySpinner;
+    private List<CountryResponse> countries;
+    private Integer countryId;
+    @BindView(R.id.pb_loading)
+    ProgressBar pbLoading;
+    private AlertDialog alertDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        renderView();
+        populateSpinner();
+        commonPresenter = CommonPresenter.getInstance();
+        commonPresenter.setView(this);
+        userPresenter = UserPresenter.getInstance();
+        userPresenter.setView(this);
+        alertDialog = MyAlertDialog.createAlertDialog(this, "");
     }
 
-    private void renderView() {
-        nameET = (EditText) findViewById(R.id.nameET);
-        mobileET = (EditText) findViewById(R.id.mobileET);
-        emailET = (EditText) findViewById(R.id.emailET);
-        passwordET = (EditText) findViewById(R.id.passwordET);
-        confirmPassworET = (EditText) findViewById(R.id.confirmPasswordET);
-        type = (RadioGroup) findViewById(R.id.typeRadioGroup);
-        tutorRadioButton = (RadioButton) findViewById(R.id.tutorRadio);
+    private void populateSpinner() {
+        countrySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Country country = (Country) parent.getSelectedItem();
+                countryId = country.getId();
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     public void register(View view) {
@@ -66,9 +106,8 @@ public class RegisterActivity extends BaseActivity {
             if (tutorRadioButton.isChecked()) {
                 isTutor = true;
             }
-            User user = new User(name, mobile, email, password, isTutor);
-            user.setCountryId("1");
-            UserPresenter.getInstance(UserService.getInstance(), this).register(user);
+            User user = new User(name, mobile, email, password, isTutor, countryId.toString());
+            userPresenter.register(user);
         }
     }
 
@@ -76,4 +115,43 @@ public class RegisterActivity extends BaseActivity {
     protected int getLayoutId() {
         return R.layout.activity_register;
     }
+
+
+    @Override
+    protected void onDestroy() {
+        commonPresenter.unSubscribe();
+        userPresenter.unSubscribe();
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        commonPresenter.getCountries();
+    }
+
+
+    @Override
+    public void initializeCountryList(List<Country> countries) {
+        ArrayAdapter<Country> adapter = new ArrayAdapter<Country>(this, android.R.layout.simple_spinner_dropdown_item, countries);
+        countrySpinner.setAdapter(adapter);
+    }
+
+    @Override
+    public void onSuccess(CommonResponse response) {
+        alertDialog.setMessage(response.getMessage());
+        alertDialog.show();
+    }
+
+    @Override
+    public void onFailure(CommonResponse response) {
+        alertDialog.setMessage(response.getMessage());
+        alertDialog.show();
+    }
+
+    @Override
+    public void setLoaderVisibility(boolean isVisible) {
+        pbLoading.setVisibility(isVisible ? VISIBLE : GONE);
+    }
+
 }
