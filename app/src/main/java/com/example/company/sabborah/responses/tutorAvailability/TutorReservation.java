@@ -2,8 +2,12 @@ package com.example.company.sabborah.responses.tutorAvailability;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Mohamed Sayed on 2/18/2018.
@@ -12,10 +16,8 @@ import java.util.List;
 public class TutorReservation {
     @SerializedName("subjects")
     @Expose
-    private List<AvailablilitySubject> subjects = null;
-    @SerializedName("availability")
-    @Expose
-    private Availability availability;
+    private List<AvailabilitySubject> subjects = null;
+    private Map<String, List<AvailabilityDetails>> availability;
     @SerializedName("singleRate")
     @Expose
     private Integer singleRate;
@@ -55,27 +57,33 @@ public class TutorReservation {
     @SerializedName("hasProfile")
     @Expose
     private Boolean hasProfile;
-    @SerializedName("reservations")
-    @Expose
-    private Reservations reservations;
+    private Map<String, List<ReservationDetails>> reservations;
     @SerializedName("studentReservations")
     @Expose
     private List<StudentReservation> studentReservations = null;
 
-    public List<AvailablilitySubject> getSubjects() {
+    public List<AvailabilitySubject> getSubjects() {
         return subjects;
     }
 
-    public void setSubjects(List<AvailablilitySubject> subjects) {
+    public void setSubjects(List<AvailabilitySubject> subjects) {
         this.subjects = subjects;
     }
 
-    public Availability getAvailability() {
+    public Map<String, List<AvailabilityDetails>> getAvailability() {
         return availability;
     }
 
-    public void setAvailability(Availability availability) {
+    public void setAvailability(Map<String, List<AvailabilityDetails>> availability) {
         this.availability = availability;
+    }
+
+    public Boolean getTutor() {
+        return isTutor;
+    }
+
+    public void setTutor(Boolean tutor) {
+        isTutor = tutor;
     }
 
     public Integer getSingleRate() {
@@ -182,11 +190,11 @@ public class TutorReservation {
         this.hasProfile = hasProfile;
     }
 
-    public Reservations getReservations() {
+    public Map<String, List<ReservationDetails>> getReservations() {
         return reservations;
     }
 
-    public void setReservations(Reservations reservations) {
+    public void setReservations(Map<String, List<ReservationDetails>> reservations) {
         this.reservations = reservations;
     }
 
@@ -197,5 +205,4 @@ public class TutorReservation {
     public void setStudentReservations(List<StudentReservation> studentReservations) {
         this.studentReservations = studentReservations;
     }
-
 }

@@ -9,13 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CheckedTextView;
 import android.widget.ExpandableListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import com.example.company.sabborah.R;
-import com.example.company.sabborah.adapters.MyGradeAdapter;
+import com.example.company.sabborah.adapters.MyLevelAdapter;
 import com.example.company.sabborah.presenters.TutorContract;
 import com.example.company.sabborah.presenters.TutorPresenter;
 import com.example.company.sabborah.responses.CommonResponse;
@@ -38,7 +37,7 @@ import static android.view.View.VISIBLE;
 
 
 public class TutorAddSubjectFragment extends BaseFragment implements TutorContract.View {
-    MyGradeAdapter myGradeAdapter;
+    MyLevelAdapter myGradeAdapter;
     @BindView(R.id.gradeListView)
     ExpandableListView gradeListView;
     private List<Level> levelList = new ArrayList<>();
@@ -75,7 +74,6 @@ public class TutorAddSubjectFragment extends BaseFragment implements TutorContra
     @Override
     public void onResume() {
         tutorPresenter.getLevels();
-        tutorPresenter.getTutorInformation(TokenUtil.getReference().getUserId("eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiJmNTE0NTIxMi1kNmQxLTQxOTItODBkNi0wOGQ1NmZhZTI4MjIiLCJzdWIiOiJmaXJlYmFzZS1hZG1pbnNkay1yOGphekBmaXJlYmFzZS1teXR1dG9yYXBwLmlhbS5nc2VydmljZWFjY291bnQuY29tIiwiaXN0dXRvciI6IjEiLCJlbWFpbCI6Im1vaGFtZWRAbS5jb20iLCJuYmYiOjE1MTg5NzY5NDYsImV4cCI6MTUxODk4MDU0NiwiaWF0IjoxNTE4OTc2OTQ2LCJpc3MiOiJmaXJlYmFzZS1hZG1pbnNkay1yOGphekBmaXJlYmFzZS1teXR1dG9yYXBwLmlhbS5nc2VydmljZWFjY291bnQuY29tIiwiYXVkIjoiaHR0cHM6Ly9pZGVudGl0eXRvb2xraXQuZ29vZ2xlYXBpcy5jb20vZ29vZ2xlLmlkZW50aXR5LmlkZW50aXR5dG9vbGtpdC52MS5JZGVudGl0eVRvb2xraXQifQ.CVonmmFk40WDGD7TCjDjEITK39mdaWotCDf2cobzRImRR76D56G8iFCq7ZhCSVvVUkugNw97qoTbpbDZfHkqtjGWxQKRUrlqqTzJ8Sj_2v7ywEHJ6pnEXJEYLor7-RSSKMnm4mShRmG2pNSMedcWY9nbHBL-D08o7HR5V75-4Fyn8_abb2baMk5xm_V_ckOc--tvZdNDyfWmluW2sIzL6aTTJKCph036skG2cJrljq-hGVlPf4RmKiJnh6KDd0erzKmQec1AqcJGV1JyUlfTTSlEY8N8Y75kE7BppShvy7TMadL6Modh7lfC_7SDpU8lculBSOkZTxmmiZDgN9i9Hw").getUid());
         super.onResume();
     }
 
@@ -92,7 +90,7 @@ public class TutorAddSubjectFragment extends BaseFragment implements TutorContra
         for (Grade grade : levelList.get(index).getGrades()) {
             grades.add(grade);
         }
-        myGradeAdapter = new MyGradeAdapter(grades);
+        myGradeAdapter = new MyLevelAdapter(grades);
         gradeListView.setAdapter(myGradeAdapter);
     }
 
@@ -123,7 +121,6 @@ public class TutorAddSubjectFragment extends BaseFragment implements TutorContra
 
     @Override
     public void onGetTutorInformationSuccess(TutorReservation tutorReservation) {
-        tutorReservation.getAvailability();
     }
 
     @Override

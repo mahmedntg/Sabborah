@@ -22,7 +22,10 @@ public interface TutorInterface {
     @POST("tutors/{tutorId}/subjects")
     Observable<ResponseBody> addSubject(@Path("tutorId") String tutorId, @Body TutorSubjectRequest tutorSubjectRequest);
 
+    @POST("tutors/{tutorId}/availability")
+    Observable<ResponseBody> addAvailability(@Path("tutorId") String tutorId, @Body TutorSubjectRequest tutorSubjectRequest);
+
     @GET("tutors/{tutorId}")
-    Observable<TutorReservation> getTutorInformation(@Path("tutorId") String tutorId);
+    Observable<ResponseBody> getTutorInformation(@Path("tutorId") String tutorId);
 
 }

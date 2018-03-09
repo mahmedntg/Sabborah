@@ -37,7 +37,7 @@ public class MyGradeAdapterOld extends CheckableChildRecyclerViewAdapter<GradeVi
 
     @Override
     public GradeViewHolder onCreateGroupViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grade_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_level_layout, parent, false);
         return new GradeViewHolder(view);
 
     }
@@ -51,7 +51,7 @@ public class MyGradeAdapterOld extends CheckableChildRecyclerViewAdapter<GradeVi
     @Override
     public SubjectViewHolder onCreateCheckChildViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.subject_layout, parent, false);
+                .inflate(R.layout.grade_subject_layout, parent, false);
         return new SubjectViewHolder(view);
     }
 

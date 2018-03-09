@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by Mohamed Sayed on 2/18/2018.
  */
 
-public class AvailablilitySubject {
+public class AvailabilitySubject {
     @SerializedName("levelId")
     @Expose
     private Integer levelId;

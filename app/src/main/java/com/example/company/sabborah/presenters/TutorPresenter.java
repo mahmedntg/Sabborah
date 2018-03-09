@@ -2,6 +2,7 @@ package com.example.company.sabborah.presenters;
 
 import com.example.company.sabborah.BaseCallback;
 import com.example.company.sabborah.Presenter;
+import com.example.company.sabborah.models.SubjectAvailability;
 import com.example.company.sabborah.responses.CommonResponse;
 import com.example.company.sabborah.responses.tutor.Subject;
 import com.example.company.sabborah.responses.tutorAvailability.TutorReservation;
@@ -43,6 +44,12 @@ public class TutorPresenter extends Presenter<TutorContract.View> implements Tut
     public void addSubject(String tutorId, List<Subject> subjects) {
         getView().setLoaderVisibility(true);
         service.addSubject(tutorId, subjects, addSubjectCallback);
+    }
+
+    @Override
+    public void addAvailability(String tutorId, List<SubjectAvailability> subjectAvailabilities) {
+        getView().setLoaderVisibility(true);
+        service.addAvailability(tutorId, subjectAvailabilities, addSubjectCallback);
     }
 
     @Override
@@ -93,4 +100,5 @@ public class TutorPresenter extends Presenter<TutorContract.View> implements Tut
             getView().setLoaderVisibility(false);
         }
     };
+
 }

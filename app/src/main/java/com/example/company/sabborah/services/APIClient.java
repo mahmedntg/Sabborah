@@ -81,7 +81,7 @@ public class APIClient {
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(BuildConfig.BASEURL2)
+                .baseUrl(BuildConfig.BASEURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)
@@ -106,9 +106,36 @@ public class APIClient {
             commonResponse.setStatusCode(response.code());
         } catch (JSONException e) {
             e.printStackTrace();
+            commonResponse.setMessage(e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return commonResponse;
+    }
+
+    public CommonResponse getNonCommonErrorBody(Response<?> response) {
+        Gson converter = new Gson();
+        CommonResponse commonResponse = new CommonResponse();
+        try {
+            List<String> errors = new ArrayList<>();
+            if (response.errorBody() != null) {
+                String error = response.errorBody().string();
+                errors.add(error);
+            }
+            commonResponse.setErrors(errors);
+            commonResponse.setSuccess(response.isSuccessful());
+            commonResponse.setStatusCode(response.code());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return commonResponse;
+    }
+
+    public CommonResponse getDefaultErrorBody(String message) {
+        CommonResponse commonResponse = new CommonResponse();
+        List<String> errors = new ArrayList<>();
+        errors.add(message);
+        commonResponse.setErrors(errors);
         return commonResponse;
     }
 }

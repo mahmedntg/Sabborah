@@ -10,7 +10,7 @@ import java.util.List;
  * Created by Mohamed Sayed on 2/3/2018.
  */
 
-public class Grade{
+public class Grade {
 
     @SerializedName("id")
     @Expose
@@ -55,6 +55,11 @@ public class Grade{
 
     public void setSubjects(List<Subject> subjects) {
         this.subjects = subjects;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
 

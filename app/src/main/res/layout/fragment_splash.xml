@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,9 +7,9 @@
     tools:context="com.example.company.sabborah.views.SplashFragment">
 
     <Button
+        android:id="@+id/addAvailability"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="addAvailability"
         android:text="@string/addAvailability" />
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
@@ -21,10 +21,29 @@
         app:mcv_firstDayOfWeek="saturday"
         app:mcv_showOtherDates="all"></com.prolificinteractive.materialcalendarview.MaterialCalendarView>
 
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:visibility="visible" />
+
     <ListView
         android:id="@+id/timeSlotLV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"></ListView>
+        android:layout_marginTop="140dp"></ListView>
 
-</LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right|end"
+        android:layout_margin="16dp"
+        android:tooltipText="@string/addSubject"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp" />
+</android.support.design.widget.CoordinatorLayout>

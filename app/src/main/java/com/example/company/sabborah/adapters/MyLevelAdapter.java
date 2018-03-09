@@ -27,10 +27,10 @@ import butterknife.ButterKnife;
  * Created by Mohamed Sayed on 2/3/2018.
  */
 
-public class MyGradeAdapter extends BaseExpandableListAdapter {
+public class MyLevelAdapter extends BaseExpandableListAdapter {
     private List<Grade> gradeList;
 
-    public MyGradeAdapter(List<Grade> gradeList) {
+    public MyLevelAdapter(List<Grade> gradeList) {
         this.gradeList = gradeList;
     }
 
@@ -73,7 +73,7 @@ public class MyGradeAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded, View view, ViewGroup parent) {
         Grade grade = (Grade) getGroup(groupPosition);
         GradeHolder gradeHolder;
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grade_layout, parent, false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_level_layout, parent, false);
         gradeHolder = new GradeHolder(view);
         gradeHolder.setGradeName(grade);
         if (isExpanded) {
@@ -90,7 +90,7 @@ public class MyGradeAdapter extends BaseExpandableListAdapter {
     public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View view, ViewGroup parent) {
         final Subject subject = (Subject) getChild(groupPosition, childPosition);
         final SubjectHolder subjectHolder;
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.subject_layout, parent, false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grade_subject_layout, parent, false);
         subjectHolder = new SubjectHolder(view, subject);
         subjectHolder.setSubject();
         gradeList.get(groupPosition).getSubjects().get(childPosition).setSingleRate(subject.getSingleRate());

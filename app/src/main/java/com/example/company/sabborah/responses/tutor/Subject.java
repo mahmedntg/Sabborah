@@ -80,7 +80,7 @@ public class Subject {
     }
 
     public double getSingleRate() {
-        return singleRate==0?5.0:singleRate;
+        return singleRate == 0 ? 5.0 : singleRate;
     }
 
     public void setSingleRate(double singleRate) {
@@ -88,10 +88,15 @@ public class Subject {
     }
 
     public double getGroupRate() {
-        return groupRate==0?5.0:groupRate;
+        return groupRate == 0 ? 5.0 : groupRate;
     }
 
     public void setGroupRate(double groupRate) {
         this.groupRate = groupRate;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

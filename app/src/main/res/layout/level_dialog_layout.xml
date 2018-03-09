@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/gradeRL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp">
+
+            <LinearLayout
+                android:id="@+id/groupMaxId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/groupMax" />
+
+                <Button
+                    android:id="@+id/groupPlusBTN"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:text="+" />
+
+                <TextView
+                    android:id="@+id/groupPriceTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5" />
+
+                <Button
+                    android:id="@+id/groupMinusBTN"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:text="-" />
+
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/levelSpinnerId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/groupMaxId"></Spinner>
+
+            <Spinner
+                android:id="@+id/gradeSpinnerId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/levelSpinnerId"></Spinner>
+
+            <Spinner
+                android:id="@+id/subjectSpinnerId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/gradeSpinnerId"></Spinner>
+
+            <Button
+                android:id="@+id/dialogButtonOK"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/gradeSpinnerId"
+                android:layout_marginTop="50dp"
+                android:text=" Ok " />
+
+            <Button
+                android:id="@+id/dialogButtonCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/gradeSpinnerId"
+                android:layout_marginTop="50dp"
+                android:layout_toRightOf="@id/dialogButtonOK"
+                android:text=" Cancel " />
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

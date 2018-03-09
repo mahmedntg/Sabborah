@@ -1,6 +1,7 @@
 package com.example.company.sabborah.presenters;
 
 import com.example.company.sabborah.BaseView;
+import com.example.company.sabborah.models.SubjectAvailability;
 import com.example.company.sabborah.responses.CommonResponse;
 import com.example.company.sabborah.responses.tutor.Subject;
 import com.example.company.sabborah.responses.tutorAvailability.TutorReservation;
@@ -33,6 +34,8 @@ public interface TutorContract {
         void getLevels();
 
         void addSubject(String tutorId, List<Subject> subjects);
+
+        void addAvailability(String tutorId, List<SubjectAvailability> subjectAvailabilities);
 
         void getTutorInformation(String tutorId);
     }

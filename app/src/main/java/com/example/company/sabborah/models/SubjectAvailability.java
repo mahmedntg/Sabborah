@@ -1,60 +1,48 @@
 package com.example.company.sabborah.models;
 
-import java.util.Date;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by Mohamed Sayed on 2/16/2018.
+ * Created by Mohamed Sayed on 2/24/2018.
  */
 
-public class TimeSlot {
-    private int id;
-    private String name;
-    private boolean checked;
-    private Date date;
+public class SubjectAvailability {
+    @SerializedName("timeslot")
+    @Expose
+    private int timeslot;
+    @SerializedName("date")
+    @Expose
+    private String date;
+    @SerializedName("subjectId")
+    @Expose
     private int subjectId;
+    @SerializedName("groupMax")
+    @Expose
     private int groupMax;
+    @SerializedName("reservationId")
+    @Expose
     private long reservationId;
+    @SerializedName("tutorId")
+    @Expose
     private String tutorId;
+    @SerializedName("id")
+    @Expose
     private long availabilityId;
 
-    public TimeSlot() {
+    public int getTimeslot() {
+        return timeslot;
     }
 
-    public TimeSlot(int id, String name, boolean checked) {
-        this.id = id;
-        this.name = name;
-        this.checked = checked;
+    public void setTimeslot(int timeslot) {
+        this.timeslot = timeslot;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public boolean isChecked() {
-        return checked;
-    }
-
-    public void setChecked(boolean checked) {
-        this.checked = checked;
-    }
-
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

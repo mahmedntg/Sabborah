@@ -10,7 +10,7 @@ import java.util.List;
  */
 
 public class Reservations {
-    @SerializedName("17-12-2017")
+    @SerializedName("reservationDetails")
     @Expose
     private List<ReservationDetails> reservationDetails = null;
 
