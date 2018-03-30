@@ -7,6 +7,7 @@ import com.example.company.sabborah.responses.tutorAvailability.TutorReservation
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -28,4 +29,6 @@ public interface TutorInterface {
     @GET("tutors/{tutorId}")
     Observable<ResponseBody> getTutorInformation(@Path("tutorId") String tutorId);
 
+    @DELETE("tutors/{tutorId}/reservations/{reservationId}")
+    Observable<ResponseBody> deleteTutorReservation(@Path("tutorId") String tutorId, @Path("reservationId") long reservationId);
 }

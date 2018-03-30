@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dateTV"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="12-02-2018"
+                android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/timeSlotTV"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="10:00PM - 11:00 PM"
+                android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/subjectTV"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="عربي"
+                android:textSize="25dp" />
+
+            <TextView
+                android:id="@+id/deleteReservationId"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="300dp"
+                android:layout_marginTop="-80dp"
+                android:drawableEnd="@mipmap/ic_delete_forever_black_48dp"
+                android:drawableRight="@mipmap/ic_delete_forever_black_48dp" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

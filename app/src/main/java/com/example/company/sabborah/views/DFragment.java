@@ -42,6 +42,7 @@ public class DFragment extends DialogFragment {
     TextView groupPriceTV;
     int groupMax = 5;
     int position;
+    private static int reservationId = -1;
     private List<TimeSlot> timeSlots;
 
     public void setLevelList(List<Level> levelList, List<TimeSlot> timeSlots, TimeSlot timeSlot) {
@@ -52,27 +53,6 @@ public class DFragment extends DialogFragment {
 
     public void setTimeSlot(TimeSlot timeSlot) {
         this.timeSlot = timeSlot;
-    }
-
-    private TimeSlot checkIfTimeSlotSingle(TimeSlot timeSlot) {
-        int position = timeSlot.getId();
-        if (timeSlot.isChecked()) {
-            TimeSlot timeSlot1 = new TimeSlot();
-            TimeSlot timeSlot2 = new TimeSlot();
-            if (position == 0) {
-                timeSlot2 = timeSlots.get(position + 1);
-            } else if (position == 47) {
-                timeSlot1 = timeSlots.get(position - 1);
-            } else {
-                timeSlot1 = timeSlots.get(position - 1);
-                timeSlot2 = timeSlots.get(position + 1);
-            }
-            if (!timeSlot1.isChecked() && !timeSlot2.isChecked()) {
-                timeSlot.setReservationId(0);
-                timeSlot.setAvailabilityId(0);
-            }
-        }
-        return timeSlot;
     }
 
     private boolean isTwoTimeSlotsCheckedTogether(int timeSlotId, int position) {
@@ -112,7 +92,8 @@ public class DFragment extends DialogFragment {
                 Subject subject = (Subject) subjectSpinner.getSelectedItem();
                 timeSlot.setSubjectId(subject.getId());
                 timeSlot.setGroupMax(groupMax);
-                timeSlot.setReservationId(-1);
+                timeSlot.setReservationId(reservationId);
+                reservationId--;
                 SplashFragment.notifyAdapter(timeSlot);
                 getDialog().dismiss();
             }

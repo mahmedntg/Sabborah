@@ -16,7 +16,7 @@ public class TimeSlot {
     private long reservationId;
     private String tutorId;
     private long availabilityId;
-
+    private boolean enabled;
     public TimeSlot() {
     }
 
@@ -96,5 +96,13 @@ public class TimeSlot {
 
     public void setAvailabilityId(long availabilityId) {
         this.availabilityId = availabilityId;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

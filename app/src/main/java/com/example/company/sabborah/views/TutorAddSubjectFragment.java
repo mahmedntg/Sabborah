@@ -1,9 +1,8 @@
 package com.example.company.sabborah.views;
 
-
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,8 @@ import com.example.company.sabborah.R;
 import com.example.company.sabborah.adapters.MyLevelAdapter;
 import com.example.company.sabborah.presenters.TutorContract;
 import com.example.company.sabborah.presenters.TutorPresenter;
+import com.example.company.sabborah.presenters.TutorSubjectContract;
+import com.example.company.sabborah.presenters.TutorSubjectPresenter;
 import com.example.company.sabborah.responses.CommonResponse;
 import com.example.company.sabborah.responses.tutor.Grade;
 import com.example.company.sabborah.responses.tutor.Level;
@@ -36,28 +37,32 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 
-public class TutorAddSubjectFragment extends BaseFragment implements TutorContract.View {
+public class TutorAddSubjectFragment extends BaseFragment implements TutorSubjectContract.View {
     MyLevelAdapter myGradeAdapter;
     @BindView(R.id.gradeListView)
     ExpandableListView gradeListView;
     private List<Level> levelList = new ArrayList<>();
-    TutorPresenter tutorPresenter;
+    TutorSubjectPresenter presenter;
     private AlertDialog alertDialog;
     @BindView(R.id.pb_loading)
     ProgressBar pbLoading;
     @BindView(R.id.levelSpinnerId)
     public Spinner levelSpinner;
     List<Grade> grades = new ArrayList<Grade>();
+    String tutorId = "b83a5d5c-50bc-4437-db96-08d4fe661033";
+
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = super.onCreateView(inflater, container, savedInstanceState);
-        tutorPresenter = TutorPresenter.getInstance();
-        tutorPresenter.setView(this);
+    protected void initializePresenter() {
+        presenter = TutorSubjectPresenter.getInstance();
+        super.presenter = presenter;
+        presenter.setView(this);
         alertDialog = MyAlertDialog.createAlertDialog(getActivity(), "");
-        return view;
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_tutor_add_subject;
     }
 
     @Override
@@ -67,13 +72,8 @@ public class TutorAddSubjectFragment extends BaseFragment implements TutorContra
     }
 
     @Override
-    protected int getFragmentLayoutId() {
-        return R.layout.fragment_tutor_add_subject;
-    }
-
-    @Override
     public void onResume() {
-        tutorPresenter.getLevels();
+        presenter.getLevels();
         super.onResume();
     }
 
@@ -119,16 +119,6 @@ public class TutorAddSubjectFragment extends BaseFragment implements TutorContra
         pbLoading.setVisibility(isVisible ? VISIBLE : GONE);
     }
 
-    @Override
-    public void onGetTutorInformationSuccess(TutorReservation tutorReservation) {
-    }
-
-    @Override
-    public void onDestroy() {
-        tutorPresenter.unSubscribe();
-        super.onDestroy();
-    }
-
 
     private void populateSpinner() {
         levelSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -155,7 +145,14 @@ public class TutorAddSubjectFragment extends BaseFragment implements TutorContra
             }
         }
         String token = MySharedPreferences.getReference(getActivity()).getToken();
-        tutorPresenter.addSubject(TokenUtil.getReference().getUserId(token).getUid(), selectedSubjects);
+        presenter.addSubject(tutorId, selectedSubjects);
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.unSubscribe();
+    }
+
 
 }

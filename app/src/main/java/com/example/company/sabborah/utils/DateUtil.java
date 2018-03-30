@@ -150,6 +150,15 @@ public abstract class DateUtil {
         return dateFormatter.format(date);
     }
 
+    public static String getCurrentDateAsString() {
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
+        return dateFormatter.format(new Date());
+    }
+
+    public static Date getCurrentDate() {
+        return getDateFromSimpleDateString(getCurrentDateAsString());
+    }
+
     /**
      * @param date
      * @return date with format dd/MM/yyyy
@@ -186,7 +195,21 @@ public abstract class DateUtil {
      */
     public static Date getDateFromSimpleDateString(String stringDate) {
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+
+        Date date = null;
+        try {
+            date = formatter.parse(stringDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return date;
+    }
+
+    public static Date getDateFromSimpleDateString(String stringDate, String pattern) {
+
+        SimpleDateFormat formatter = new SimpleDateFormat(pattern);
 
         Date date = null;
         try {
@@ -203,7 +226,7 @@ public abstract class DateUtil {
      * @return
      */
     public static Date convertStringToSimpleDate(String stringDate) {
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
 
 
         Date date = null;

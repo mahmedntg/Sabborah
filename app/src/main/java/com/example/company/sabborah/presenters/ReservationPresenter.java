@@ -14,18 +14,18 @@ import java.util.List;
  * Created by Mohamed Sayed on 1/7/2018.
  */
 
-public class TutorPresenter extends Presenter<TutorContract.View> implements TutorContract.Presenter {
+public class ReservationPresenter extends Presenter<ReservationContract.View> implements ReservationContract.Presenter {
     private static TutorService service;
-    private static TutorPresenter mInstance;
+    private static ReservationPresenter mInstance;
 
-    public static synchronized TutorPresenter getInstance() {
+    public static synchronized ReservationPresenter getInstance() {
         if (mInstance == null) {
-            mInstance = new TutorPresenter();
+            mInstance = new ReservationPresenter();
         }
         return mInstance;
     }
 
-    private TutorPresenter() {
+    private ReservationPresenter() {
         this.service = TutorService.getInstance();
     }
 
@@ -35,39 +35,18 @@ public class TutorPresenter extends Presenter<TutorContract.View> implements Tut
     }
 
     @Override
-    public void getLevels() {
-        getView().setLoaderVisibility(true);
-        service.getLevels(getLevelCallback);
-    }
-
-    @Override
-    public void addAvailability(String tutorId, List<SubjectAvailability> subjectAvailabilities) {
-        getView().setLoaderVisibility(true);
-        service.addAvailability(tutorId, subjectAvailabilities, availabilityCallback);
-    }
-
-    @Override
     public void getTutorInformation(String tutorId) {
         getView().setLoaderVisibility(true);
-        service.getTutorInformation(tutorId, tutorCallBack, null);
+        service.getTutorInformation(tutorId, null , reservationCallBack);
     }
 
-    BaseCallback availabilityCallback = new BaseCallback() {
-        @Override
-        public void onSuccess(CommonResponse commonResponse) {
-            getView().onAddAvailabilitySuccess(commonResponse);
-            getView().setLoaderVisibility(false);
+    @Override
+    public void deleteTutorReservation(String tutorId, long reservationId) {
+        getView().setLoaderVisibility(true);
+        service.deleteTutorReservation(tutorId, reservationId, deleteReservationCallBack);
+    }
 
-        }
-
-        @Override
-        public void onError(CommonResponse commonResponse) {
-            getView().onAddAvailabilityFailure(commonResponse);
-            getView().setLoaderVisibility(false);
-        }
-    };
-
-    TutorService.TutorCallBack tutorCallBack = new TutorService.TutorCallBack() {
+    TutorService.ReservationCallBack reservationCallBack = new TutorService.ReservationCallBack() {
         @Override
         public void onSuccess(TutorReservation tutorReservation) {
             getView().onGetTutorInformationSuccess(tutorReservation);
@@ -80,19 +59,18 @@ public class TutorPresenter extends Presenter<TutorContract.View> implements Tut
             getView().setLoaderVisibility(false);
         }
     };
-    BaseCallback getLevelCallback = new BaseCallback() {
+    TutorService.DeleteReservationCallBack deleteReservationCallBack = new TutorService.DeleteReservationCallBack() {
         @Override
         public void onSuccess(CommonResponse commonResponse) {
-            getView().onGetLevelsSuccess(commonResponse);
+            getView().onDeleteTutorReservationSuccess(commonResponse);
             getView().setLoaderVisibility(false);
-
         }
 
         @Override
         public void onError(CommonResponse commonResponse) {
-            getView().onGetLevelsFailure(commonResponse);
+            getView().onDeleteTutorReservationFailed(commonResponse);
             getView().setLoaderVisibility(false);
+
         }
     };
-
 }

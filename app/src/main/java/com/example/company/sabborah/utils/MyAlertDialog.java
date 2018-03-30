@@ -1,8 +1,8 @@
 package com.example.company.sabborah.utils;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 
 /**
  * Created by Mohamed Sayed on 10/21/2017.

@@ -145,7 +145,7 @@ public class MyLevelAdapter extends BaseExpandableListAdapter {
 }
 
 class GradeHolder {
-    @BindView(R.id.gradeTV)
+    @BindView(R.id.levelTV)
     TextView gradeName;
     @BindView(R.id.grad_arrow)
     ImageView arrow;

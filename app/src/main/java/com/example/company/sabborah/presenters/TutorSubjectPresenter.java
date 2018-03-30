@@ -14,18 +14,18 @@ import java.util.List;
  * Created by Mohamed Sayed on 1/7/2018.
  */
 
-public class TutorPresenter extends Presenter<TutorContract.View> implements TutorContract.Presenter {
+public class TutorSubjectPresenter extends Presenter<TutorSubjectContract.View> implements TutorSubjectContract.Presenter {
     private static TutorService service;
-    private static TutorPresenter mInstance;
+    private static TutorSubjectPresenter mInstance;
 
-    public static synchronized TutorPresenter getInstance() {
+    public static synchronized TutorSubjectPresenter getInstance() {
         if (mInstance == null) {
-            mInstance = new TutorPresenter();
+            mInstance = new TutorSubjectPresenter();
         }
         return mInstance;
     }
 
-    private TutorPresenter() {
+    private TutorSubjectPresenter() {
         this.service = TutorService.getInstance();
     }
 
@@ -33,7 +33,6 @@ public class TutorPresenter extends Presenter<TutorContract.View> implements Tut
     public void unSubscribe() {
         service.unSubscribe();
     }
-
     @Override
     public void getLevels() {
         getView().setLoaderVisibility(true);
@@ -41,42 +40,22 @@ public class TutorPresenter extends Presenter<TutorContract.View> implements Tut
     }
 
     @Override
-    public void addAvailability(String tutorId, List<SubjectAvailability> subjectAvailabilities) {
+    public void addSubject(String tutorId, List<Subject> subjects) {
         getView().setLoaderVisibility(true);
-        service.addAvailability(tutorId, subjectAvailabilities, availabilityCallback);
+        service.addSubject(tutorId, subjects, addSubjectCallback);
     }
 
-    @Override
-    public void getTutorInformation(String tutorId) {
-        getView().setLoaderVisibility(true);
-        service.getTutorInformation(tutorId, tutorCallBack, null);
-    }
-
-    BaseCallback availabilityCallback = new BaseCallback() {
+    BaseCallback addSubjectCallback = new BaseCallback() {
         @Override
         public void onSuccess(CommonResponse commonResponse) {
-            getView().onAddAvailabilitySuccess(commonResponse);
+            getView().onAddSubjectSuccess(commonResponse);
             getView().setLoaderVisibility(false);
 
         }
 
         @Override
         public void onError(CommonResponse commonResponse) {
-            getView().onAddAvailabilityFailure(commonResponse);
-            getView().setLoaderVisibility(false);
-        }
-    };
-
-    TutorService.TutorCallBack tutorCallBack = new TutorService.TutorCallBack() {
-        @Override
-        public void onSuccess(TutorReservation tutorReservation) {
-            getView().onGetTutorInformationSuccess(tutorReservation);
-            getView().setLoaderVisibility(false);
-
-        }
-
-        @Override
-        public void onError(CommonResponse commonResponse) {
+            getView().onAddSubjectFailure(commonResponse);
             getView().setLoaderVisibility(false);
         }
     };
@@ -94,5 +73,4 @@ public class TutorPresenter extends Presenter<TutorContract.View> implements Tut
             getView().setLoaderVisibility(false);
         }
     };
-
 }

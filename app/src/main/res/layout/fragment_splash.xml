@@ -35,14 +35,15 @@
         android:id="@+id/timeSlotLV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"></ListView>
+        android:layout_marginTop="150dp"></ListView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right|end"
-        android:layout_margin="16dp"
+        android:layout_gravity="bottom|start"
+        android:layout_marginBottom="70dp"
+        android:layout_marginLeft="16dp"
         android:tooltipText="@string/addSubject"
         app:elevation="6dp"
         app:pressedTranslationZ="12dp" />

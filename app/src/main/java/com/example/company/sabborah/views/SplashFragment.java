@@ -1,7 +1,5 @@
 package com.example.company.sabborah.views;
 
-import android.app.AlertDialog;
-
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +67,7 @@ public class SplashFragment extends BaseFragment implements TutorContract.View {
     FloatingActionButton fab;
     @BindView(R.id.timeSlotLV)
     ListView timeSlotLV;
-    TutorPresenter tutorPresenter;
+    TutorPresenter presenter;
     AlertDialog alertDialog;
     List<Level> levelList = new ArrayList<>();
     public Spinner levelSpinner;
@@ -77,7 +76,6 @@ public class SplashFragment extends BaseFragment implements TutorContract.View {
     @BindView(R.id.pb_loading)
     ProgressBar pbLoading;
     static TimeSlotAdapter timeSlotAdapter;
-    FragmentManager fragmentManager;
     static List<TimeSlot> timeSlotList;
     private String reservationDate;
     List<AvailabilitySubject> availabilitySubjects;
@@ -85,19 +83,20 @@ public class SplashFragment extends BaseFragment implements TutorContract.View {
     static TimeSlot timeSlot;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = super.onCreateView(inflater, container, savedInstanceState);
-        tutorPresenter = TutorPresenter.getInstance();
-        tutorPresenter.setView(this);
+    protected void initializePresenter() {
+        presenter = TutorPresenter.getInstance();
+        super.presenter = presenter;
+        presenter.setView(this);
         alertDialog = MyAlertDialog.createAlertDialog(getActivity(), "");
-        return view;
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_splash;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        fragmentManager = getActivity().getSupportFragmentManager();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +117,7 @@ public class SplashFragment extends BaseFragment implements TutorContract.View {
     public void onResume() {
         reservationDate = DateUtil.getSimpleDate(new Date());
         populateTimeSlots();
-        tutorPresenter.getTutorInformation("b83a5d5c-50bc-4437-db96-08d4fe661033");
+        presenter.getTutorInformation("b83a5d5c-50bc-4437-db96-08d4fe661033");
         super.onResume();
     }
 
@@ -159,28 +158,31 @@ public class SplashFragment extends BaseFragment implements TutorContract.View {
     }
 
     public static void notifyAdapter(TimeSlot timeSlot) {
-        int position = timeSlot.getId();
-        timeSlotList.set(position, timeSlot);
-        while (position != 0) {
-            if (timeSlotList.get(position - 1).isChecked()) {
-                TimeSlot firstTimeSlot = timeSlotList.get(position - 1);
+        int position1 = timeSlot.getId();
+        int position2 = timeSlot.getId();
+        timeSlotList.set(position1, timeSlot);
+        while (position1 != 0) {
+            if (timeSlotList.get(position1 - 1).isChecked() && timeSlotList.get(position1 - 1).getReservationId() == 0L) {
+                TimeSlot firstTimeSlot = timeSlotList.get(position1 - 1);
                 firstTimeSlot.setGroupMax(timeSlot.getGroupMax());
                 firstTimeSlot.setReservationId(timeSlot.getReservationId());
                 firstTimeSlot.setSubjectId(timeSlot.getSubjectId());
-                timeSlotList.set(position - 1, firstTimeSlot);
-                position--;
+                timeSlotList.set(position1 - 1, firstTimeSlot);
+                position1--;
             } else {
                 break;
             }
         }
-        while (position != 47) {
-            if (timeSlotList.get(position + 1).isChecked()) {
-                TimeSlot firstTimeSlot = timeSlotList.get(position - 1);
+        while (position2 != 47) {
+            if (timeSlotList.get(position2 + 1).isChecked() && timeSlotList.get(position1 - 1).getReservationId() == 0L) {
+                TimeSlot firstTimeSlot = timeSlotList.get(position2 + 1);
                 firstTimeSlot.setGroupMax(timeSlot.getGroupMax());
                 firstTimeSlot.setReservationId(timeSlot.getReservationId());
                 firstTimeSlot.setSubjectId(timeSlot.getSubjectId());
-                timeSlotList.set(position + 1, firstTimeSlot);
-                position++;
+                timeSlotList.set(position2 + 1, firstTimeSlot);
+                position2++;
+            } else {
+                break;
             }
         }
        /*
@@ -220,7 +222,7 @@ public class SplashFragment extends BaseFragment implements TutorContract.View {
         SubjectAvailability subjectAvailability = null;
         int index = 0;
         for (TimeSlot timeSlot : timeSlotList) {
-            timeSlot = checkIfTimeSlotSingle(timeSlot);
+            // timeSlot = checkIfTimeSlotSingle(timeSlot);
             if ((timeSlot.isChecked() && timeSlot.getAvailabilityId() == 0) || (!timeSlot.isChecked() && timeSlot.getAvailabilityId() != 0)) {
                 subjectAvailability = new SubjectAvailability();
                 subjectAvailability.setDate(reservationDate);
@@ -228,20 +230,15 @@ public class SplashFragment extends BaseFragment implements TutorContract.View {
                 subjectAvailability.setReservationId(timeSlot.getReservationId());
                 subjectAvailability.setSubjectId(timeSlot.getSubjectId());
                 subjectAvailability.setTimeslot(timeSlot.getId());
-                subjectAvailability.setAvailabilityId(timeSlot.getAvailabilityId());
+                subjectAvailability.setAvailabilityId(timeSlot.getAvailabilityId() != 0L ? timeSlot.getAvailabilityId() : null);
                 subjectAvailability.setTutorId("b83a5d5c-50bc-4437-db96-08d4fe661033");
                 subjectAvailabilities.add(subjectAvailability);
             }
         }
         if (subjectAvailabilities.isEmpty()) {
-            onAddSubjectFailure(APIClient.getInstance().getDefaultErrorBody("Nothing to add!"));
+            onAddAvailabilityFailure(APIClient.getInstance().getDefaultErrorBody("Nothing to add!"));
         }
-        tutorPresenter.addAvailability("b83a5d5c-50bc-4437-db96-08d4fe661033", subjectAvailabilities);
-    }
-
-    @Override
-    protected int getFragmentLayoutId() {
-        return R.layout.fragment_splash;
+        presenter.addAvailability("b83a5d5c-50bc-4437-db96-08d4fe661033", subjectAvailabilities);
     }
 
     @Override
@@ -259,14 +256,14 @@ public class SplashFragment extends BaseFragment implements TutorContract.View {
     }
 
     @Override
-    public void onAddSubjectSuccess(CommonResponse response) {
+    public void onAddAvailabilitySuccess(CommonResponse response) {
         alertDialog.setMessage(response.getMessage());
         alertDialog.show();
-        tutorPresenter.getTutorInformation("b83a5d5c-50bc-4437-db96-08d4fe661033");
+        presenter.getTutorInformation("b83a5d5c-50bc-4437-db96-08d4fe661033");
     }
 
     @Override
-    public void onAddSubjectFailure(CommonResponse response) {
+    public void onAddAvailabilityFailure(CommonResponse response) {
         alertDialog.setMessage(response.getErrors().get(0));
         alertDialog.show();
     }
@@ -282,7 +279,7 @@ public class SplashFragment extends BaseFragment implements TutorContract.View {
         availabilityDetails = tutorReservation.getAvailability();
         availabilitySubjects = tutorReservation.getSubjects();
         updateTimeSlots();
-        tutorPresenter.getLevels();
+        presenter.getLevels();
     }
 
     private void updateTimeSlots() {
@@ -290,6 +287,7 @@ public class SplashFragment extends BaseFragment implements TutorContract.View {
             timeSlotList.get(i).setChecked(false);
             timeSlotList.get(i).setAvailabilityId(0);
             timeSlotList.get(i).setSubjectId(0);
+            timeSlotList.get(i).setReservationId(0);
             timeSlotList.get(i).setGroupMax(0);
 
         }
@@ -305,13 +303,7 @@ public class SplashFragment extends BaseFragment implements TutorContract.View {
                     timeSlot.setAvailabilityId(availability.getId());
                     timeSlot.setSubjectId(availability.getSubjectId());
                     timeSlot.setGroupMax(availability.getGroupMax());
-                    timeSlotList.set(i, timeSlot);
-                    break;
-                } else {
-                    timeSlot.setChecked(false);
-                    timeSlot.setAvailabilityId(0);
-                    timeSlot.setSubjectId(0);
-                    timeSlot.setGroupMax(0);
+                    timeSlot.setReservationId(availability.getReservationId());
                     timeSlotList.set(i, timeSlot);
                     break;
                 }
@@ -355,12 +347,6 @@ public class SplashFragment extends BaseFragment implements TutorContract.View {
 
     }
 
-    @Override
-    public void onDestroy() {
-        tutorPresenter.unSubscribe();
-        super.onDestroy();
-    }
-
     private TimeSlot checkIfTimeSlotSingle(TimeSlot timeSlot) {
         int position = timeSlot.getId();
         if (timeSlot.isChecked()) {
@@ -381,4 +367,11 @@ public class SplashFragment extends BaseFragment implements TutorContract.View {
         }
         return timeSlot;
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.unSubscribe();
+    }
+
 }

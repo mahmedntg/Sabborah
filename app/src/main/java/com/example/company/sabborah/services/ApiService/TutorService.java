@@ -178,7 +178,7 @@ public class TutorService {
      * @param tutorId
      * @param callback
      */
-    public void getTutorInformation(String tutorId, final TutorCallBack callback) {
+    public void getTutorInformation(String tutorId, final TutorCallBack callback, final ReservationCallBack reservationCallBack) {
         disposable = apiInterface.getTutorInformation(tutorId)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DisposableObserver<ResponseBody>() {
@@ -206,7 +206,45 @@ public class TutorService {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        callback.onSuccess(tutorReservation);
+                        if (reservationCallBack != null)
+                            reservationCallBack.onSuccess(tutorReservation);
+                        else
+                            callback.onSuccess(tutorReservation);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        // cast to retrofit.HttpException to get the response code
+                        if (e instanceof HttpException) {
+                            HttpException response = (HttpException) e;
+                            commonResponse = APIClient.getInstance().getErrorBody(response.response());
+                        } else {
+                            List<String> errors = new ArrayList<>();
+                            errors.add(APIClient.connectionLost);
+                            commonResponse.setErrors(errors);
+                        }
+                        if (reservationCallBack != null)
+                            reservationCallBack.onError(commonResponse);
+                        else
+                            callback.onError(commonResponse);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+
+    }
+
+    public void deleteTutorReservation(String tutorId, long reservationId, final DeleteReservationCallBack callback) {
+        disposable = apiInterface.deleteTutorReservation(tutorId, reservationId)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread()).subscribeWith(new DisposableObserver<ResponseBody>() {
+                    @Override
+                    public void onNext(ResponseBody responseBody) {
+                        commonResponse.setMessage("Reservation deleted successfully.");
+                        commonResponse.setSuccess(true);
+                        callback.onSuccess(commonResponse);
                     }
 
                     @Override
@@ -238,6 +276,18 @@ public class TutorService {
 
     public interface TutorCallBack {
         void onSuccess(TutorReservation tutorReservation);
+
+        void onError(CommonResponse commonResponse);
+    }
+
+    public interface ReservationCallBack {
+        void onSuccess(TutorReservation tutorReservation);
+
+        void onError(CommonResponse commonResponse);
+    }
+
+    public interface DeleteReservationCallBack {
+        void onSuccess(CommonResponse commonResponse);
 
         void onError(CommonResponse commonResponse);
     }

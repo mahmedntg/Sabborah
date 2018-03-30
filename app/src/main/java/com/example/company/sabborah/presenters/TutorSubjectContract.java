@@ -12,20 +12,18 @@ import java.util.List;
  * Created by Mohamed Sayed on 5/12/2017
  */
 
-public interface TutorContract {
+public interface TutorSubjectContract {
 
     interface View extends BaseView {
         void onGetLevelsSuccess(CommonResponse response);
 
         void onGetLevelsFailure(CommonResponse response);
 
-        void onAddAvailabilitySuccess(CommonResponse response);
+        void onAddSubjectSuccess(CommonResponse response);
 
-        void onAddAvailabilityFailure(CommonResponse response);
+        void onAddSubjectFailure(CommonResponse response);
 
         void setLoaderVisibility(boolean isVisible);
-
-        void onGetTutorInformationSuccess(TutorReservation tutorReservation);
     }
 
     interface Presenter {
@@ -33,8 +31,6 @@ public interface TutorContract {
 
         void getLevels();
 
-        void addAvailability(String tutorId, List<SubjectAvailability> subjectAvailabilities);
-
-        void getTutorInformation(String tutorId);
+        void addSubject(String tutorId, List<Subject> subjects);
     }
 }

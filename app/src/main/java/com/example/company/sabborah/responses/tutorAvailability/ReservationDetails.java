@@ -12,7 +12,7 @@ import java.util.List;
 public class ReservationDetails {
     @SerializedName("id")
     @Expose
-    private Integer id;
+    private Long id;
     @SerializedName("date")
     @Expose
     private String date;
@@ -21,7 +21,7 @@ public class ReservationDetails {
     private Integer firstTimeSlot;
     @SerializedName("availabilityIds")
     @Expose
-    private List<Integer> availabilityIds = null;
+    private List<Long> availabilityIds = null;
     @SerializedName("subjectId")
     @Expose
     private Integer subjectId;
@@ -58,14 +58,9 @@ public class ReservationDetails {
     @SerializedName("groupCount")
     @Expose
     private Integer groupCount;
+    private String firstTS;
+    private String lastTS;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getDate() {
         return date;
@@ -81,14 +76,6 @@ public class ReservationDetails {
 
     public void setFirstTimeSlot(Integer firstTimeSlot) {
         this.firstTimeSlot = firstTimeSlot;
-    }
-
-    public List<Integer> getAvailabilityIds() {
-        return availabilityIds;
-    }
-
-    public void setAvailabilityIds(List<Integer> availabilityIds) {
-        this.availabilityIds = availabilityIds;
     }
 
     public Integer getSubjectId() {
@@ -185,5 +172,45 @@ public class ReservationDetails {
 
     public void setGroupCount(Integer groupCount) {
         this.groupCount = groupCount;
+    }
+
+    public Boolean getGroup() {
+        return isGroup;
+    }
+
+    public void setGroup(Boolean group) {
+        isGroup = group;
+    }
+
+    public String getFirstTS() {
+        return firstTS;
+    }
+
+    public void setFirstTS(String firstTS) {
+        this.firstTS = firstTS;
+    }
+
+    public String getLastTS() {
+        return lastTS;
+    }
+
+    public void setLastTS(String lastTS) {
+        this.lastTS = lastTS;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<Long> getAvailabilityIds() {
+        return availabilityIds;
+    }
+
+    public void setAvailabilityIds(List<Long> availabilityIds) {
+        this.availabilityIds = availabilityIds;
     }
 }

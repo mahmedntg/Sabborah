@@ -1,7 +1,7 @@
 package com.example.company.sabborah.views;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;

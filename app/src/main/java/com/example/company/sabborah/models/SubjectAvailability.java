@@ -1,5 +1,6 @@
 package com.example.company.sabborah.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -28,7 +29,7 @@ public class SubjectAvailability {
     private String tutorId;
     @SerializedName("id")
     @Expose
-    private long availabilityId;
+    private Long availabilityId;
 
     public int getTimeslot() {
         return timeslot;
@@ -78,11 +79,12 @@ public class SubjectAvailability {
         this.tutorId = tutorId;
     }
 
-    public long getAvailabilityId() {
+    public Long getAvailabilityId() {
         return availabilityId;
     }
 
-    public void setAvailabilityId(long availabilityId) {
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public void setAvailabilityId(Long availabilityId) {
         this.availabilityId = availabilityId;
     }
 }
